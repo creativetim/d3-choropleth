@@ -12,15 +12,24 @@
   stroke-linejoin: round;
 }
 
-.q0-9 { fill:rgb(247,251,255); }
-.q1-9 { fill:rgb(222,235,247); }
-.q2-9 { fill:rgb(198,219,239); }
-.q3-9 { fill:rgb(158,202,225); }
-.q4-9 { fill:rgb(107,174,214); }
-.q5-9 { fill:rgb(66,146,198); }
-.q6-9 { fill:rgb(33,113,181); }
-.q7-9 { fill:rgb(8,81,156); }
-.q8-9 { fill:rgb(8,48,107); }
+.q0 { fill:rgb(247,251,255); }
+.q1 { fill:rgb(222,235,247); }
+.q2 { fill:rgb(198,219,239); }
+.q3 { fill:rgb(158,202,225); }
+.q4 { fill:rgb(107,174,214); }
+.q5 { fill:rgb(66,146,198); }
+.q6 { fill:rgb(33,113,181); }
+.q7 { fill:rgb(8,81,156); }
+.q8 { fill:rgb(8,48,107); }
+.q9 { fill:rgb(247,251,255); }
+.q10 { fill:rgb(222,235,247); }
+.q11 { fill:rgb(198,219,239); }
+.q12 { fill:rgb(158,202,225); }
+.q13 { fill:rgb(107,174,214); }
+.q14 { fill:rgb(66,146,198); }
+.q15 { fill:rgb(33,113,181); }
+.q16 { fill:rgb(8,81,156); }
+.q17 { fill:rgb(8,48,107); }
 
 </style>
 <body>
@@ -35,8 +44,8 @@ var width = 960,
 var rateById = d3.map();
 
 var quantize = d3.scale.quantize()
-    .domain([0, .15])
-    .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
+    .domain([0, 15])
+    .range(d3.range(9).map(function(i) { return "q" + i; }));
 
 var projection = d3.geo.albersUsa()
     .scale(1280)
@@ -57,17 +66,17 @@ queue()
 function ready(error, congress) {
 
   features = congress.features;
-  console.log(features.length);
+  //console.log(features.length);
   //return false;
-  console.log(topojson);
-  console.log(topojson.feature(congress.type, features));
+  //console.log(topojson);
+  //console.log(topojson.feature(congress.type, features));
 
   ss = svg.append("g")
       .attr("class", "bollocks")
     .selectAll("path")
     .data(features)
     .enter().append("path")
-      .attr("class", function(d) { return quantize(rateById.get(d.id)); })
+      .attr("class", function(d) { return 'q' + Math.round(((d.properties.CD114FP + 1) * .05).toFixed(2))/*Math.round(((d.properties.GEOID) * .002555))*/; })
       .attr("d", path);
 
   /*svg.append("path")
